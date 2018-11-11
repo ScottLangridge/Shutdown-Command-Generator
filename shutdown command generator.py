@@ -1,6 +1,9 @@
 import os
+import time
+from VirtualKeyboard import VirtualKeyboard
 
 def getTimeInSecs(time):
+    if time == '': time = '0'
     time = time.split(".")
 
     seconds = 0
@@ -18,32 +21,37 @@ def getTimeInSecs(time):
     return seconds
 
 
+def tab_and_playpause():
+    vk.hold_keys('#alt_tab#')
+    vk.key_stroke('space')
+    vk.hold_keys('#alt_tab#')
+
 
 SHUTDOWN = "shutdown -s -t"
 CANCEL = "shutdown -a"
-first = True
+vk = VirtualKeyboard()
+
+print("")
+print("--- Shutdown Time Calculator ---");
+totalSecs = getTimeInSecs(input("Input total time in the"
+                                    + " form [hr.min.sec] :\n"))
+currentSecs = getTimeInSecs(input("Input current time in the"
+                                      + " form [hr.min.sec] :\n"))
+
 while True:
-    print("")
-    print("--- Shutdown Time Calculator ---");
-    if first:
-        totalSecs = getTimeInSecs(input("Input total time in the"
-                                        + " form [hr.min.sec] :\n"))
-    else:
-        newSecs = input("Input total time in the form [hr.min.sec]. Leave"
-                        + " blank to use old time:\n")
-        if newSecs != "":
-            totalSecs = newSecs
-
-    currentSecs = getTimeInSecs(input("Input current time in the"
-                                          + " form [hr.min.sec] :\n"))
-
     shutdownCommand = SHUTDOWN + " " + str(totalSecs - currentSecs)
-    input("\n> Hit enter to start shutdown timer.")
+    input("\n> Ensure you will alt tab into vlc then hit enter to start program.")
+    start_time = time.time()    
+    tab_and_playpause()
     print(shutdownCommand)
     os.system(shutdownCommand)
+    first = False
     print("")
-    input("> Hit enter to cancel shutdown.")
+    
+    input("> Hit enter to pause shutdown.")
+    currentSecs -= int(start_time - time.time())
+    tab_and_playpause()
     print(CANCEL)
     os.system(CANCEL)
     print("")
-    first = False
+    
