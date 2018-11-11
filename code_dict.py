@@ -1,6 +1,7 @@
 #A list of user defined codes to type/keys_down_then_release code
 CUSTOM_CODES = {'#example#':'this is an example',
-                '#alt_tab#':'#alt##tab#'}
+                '#alt_tab#':'#alt##tab#',
+                '#play/pause#':'[#alt_tab#]#space#[#alt_tab#]'}
 
 #A list of keys to kex codes
 CODE_DICT = {'backspace':0x08,

@@ -42,7 +42,7 @@ while True:
     shutdownCommand = SHUTDOWN + " " + str(totalSecs - currentSecs)
     input("\n> Ensure you will alt tab into vlc then hit enter to start program.")
     start_time = time.time()    
-    tab_and_playpause()
+    vk.type('#play/pause#')
     print(shutdownCommand)
     os.system(shutdownCommand)
     first = False
@@ -50,7 +50,7 @@ while True:
     
     input("> Hit enter to pause shutdown.")
     currentSecs -= int(start_time - time.time())
-    tab_and_playpause()
+    vk.type('#play/pause#')
     print(CANCEL)
     os.system(CANCEL)
     print("")
