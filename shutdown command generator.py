@@ -21,13 +21,21 @@ def getTimeInSecs(time):
 
 SHUTDOWN = "shutdown -s -t"
 CANCEL = "shutdown -a"
+first = True
 while True:
     print("")
     print("--- Shutdown Time Calculator ---");
-    totalSecs = getTimeInSecs(input("Input total time in the"
-                                    + " form [hr.min.sec] :\n"))
+    if first:
+        totalSecs = getTimeInSecs(input("Input total time in the"
+                                        + " form [hr.min.sec] :\n"))
+    else:
+        newSecs = input("Input total time in the form [hr.min.sec]. Leave"
+                        + " blank to use old time:\n")
+        if newSecs != "":
+            totalSecs = newSecs
+
     currentSecs = getTimeInSecs(input("Input current time in the"
-                                      + " form [hr.min.sec] :\n"))
+                                          + " form [hr.min.sec] :\n"))
 
     shutdownCommand = SHUTDOWN + " " + str(totalSecs - currentSecs)
     input("\n> Hit enter to start shutdown timer.")
@@ -38,3 +46,4 @@ while True:
     print(CANCEL)
     os.system(CANCEL)
     print("")
+    first = False
