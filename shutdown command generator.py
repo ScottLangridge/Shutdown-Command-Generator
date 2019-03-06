@@ -2,6 +2,7 @@ import os
 import time
 from VirtualKeyboard import VirtualKeyboard
 
+
 def getTimeInSecs(time):
     if time == '': time = '0'
     time = time.split(".")
@@ -16,7 +17,7 @@ def getTimeInSecs(time):
         seconds += int(time[place]) * mult
         i -= 1
         place += 1
-        mult = int(mult/60)
+        mult = int(mult / 60)
 
     return seconds
 
@@ -34,24 +35,23 @@ vk = VirtualKeyboard()
 print("")
 print("--- Shutdown Time Calculator ---");
 totalSecs = getTimeInSecs(input("Input total time in the"
-                                    + " form [hr.min.sec] :\n"))
+                                + " form [hr.min.sec] :\n"))
 currentSecs = getTimeInSecs(input("Input current time in the"
-                                      + " form [hr.min.sec] :\n"))
+                                  + " form [hr.min.sec] :\n"))
 
 while True:
     shutdownCommand = SHUTDOWN + " " + str(totalSecs - currentSecs)
-    input("\n> Ensure you will alt tab into vlc then hit enter to start program.")
-    start_time = time.time()    
+    input("\n> Ensure you will alt tab into media player then hit enter to start program.")
+    start_time = time.time()
     tab_and_playpause()
     print(shutdownCommand)
     os.system(shutdownCommand)
     first = False
     print("")
-    
+
     input("> Hit enter to pause shutdown.")
     currentSecs -= int(start_time - time.time())
     tab_and_playpause()
     print(CANCEL)
     os.system(CANCEL)
     print("")
-    
